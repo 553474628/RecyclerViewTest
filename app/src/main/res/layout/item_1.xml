@@ -4,29 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/head"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="管理员"
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/hide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:text="隐藏"
-            android:textSize="30sp" />
-
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"

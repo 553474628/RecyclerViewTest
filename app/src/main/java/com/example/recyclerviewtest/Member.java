@@ -10,6 +10,12 @@ public class Member {
     int level;
     String name;
     String phone;
+    boolean hide;
+
+    public Member(int type, String name) {
+        this.type = type;
+        this.name = name;
+    }
 
     public Member(int type, String name, String phone) {
         this.type = type;
@@ -22,6 +28,14 @@ public class Member {
         this.level = level;
         this.name = name;
         this.phone = phone;
+    }
+
+    public Member(int type, int level, String name, String phone, boolean hide) {
+        this.type = type;
+        this.level = level;
+        this.name = name;
+        this.phone = phone;
+        this.hide = hide;
     }
 
     public int getType() {
@@ -56,9 +70,18 @@ public class Member {
         this.phone = phone;
     }
 
+    public boolean isHide() {
+        return hide;
+    }
+
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
+
     public class Type {
         public static final int ONE = 1;
         public static final int TWO = 2;
         public static final int THREE = 3;
+        public static final int FOUR = 4;
     }
 }
