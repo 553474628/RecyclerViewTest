@@ -1,7 +1,6 @@
 package com.example.recyclerviewtest;
 
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;

@@ -1,13 +1,15 @@
 package com.example.recyclerviewtest;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenbin
@@ -16,7 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     private MyAdapter mAdapter;
     private RecyclerView mRecyclerView;
+
     private ArrayList<Member> mData = new ArrayList<>();
+    private Map<Integer, List<Member>> mHashMap = new LinkedHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +37,9 @@ public class MainActivity extends AppCompatActivity {
                 if (hide) {
                     removeData(type);
                 } else {
-                    // 测试600的数据量没问题，但是当隐藏多个在展开的时候就会出现全部展开的问题（需要一种数据结构来完成）
-                    mData.clear();
-                    addAllDate();
+                    addData(type);
                 }
+                refreshData();
                 mAdapter.notifyDataSetChanged();
             }
         });
@@ -48,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     List<Member> list1 = new ArrayList<>();
     List<Member> list2 = new ArrayList<>();
     List<Member> list3 = new ArrayList<>();
+    List<Member> list4 = new ArrayList<>();
+    List<Member> list5 = new ArrayList<>();
+    List<Member> list6 = new ArrayList<>();
     Member member4_1;
     Member member4_2;
     Member member4_3;
@@ -55,8 +61,11 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
 
         member4_1 = new Member(4, 1, "VIP", "11111", false);
+        list4.add(member4_1);
         member4_2 = new Member(4, 2, "VIP", "11111", false);
+        list5.add(member4_2);
         member4_3 = new Member(4, 3, "VIP", "11111", false);
+        list6.add(member4_3);
 
         Member member1 = new Member(1, "陈彬", "1111111");
         Member member2 = new Member(1, "陈彬3", "176854465");
@@ -79,24 +88,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addAllDate() {
-        mData.add(member4_1);
-        mData.addAll(list1);
-        mData.add(member4_2);
-        mData.addAll(list2);
-        mData.add(member4_3);
-        mData.addAll(list3);
+        mHashMap.put(1, list4);
+        mHashMap.put(2, list1);
+        mHashMap.put(3, list5);
+        mHashMap.put(4, list2);
+        mHashMap.put(5, list6);
+        mHashMap.put(6, list3);
+
+        refreshData();
     }
 
     private void removeData(int level) {
         switch (level) {
             case 1:
-                mData.removeAll(list1);
+                mHashMap.put(2, new ArrayList<>());
                 break;
             case 2:
-                mData.removeAll(list2);
+                mHashMap.put(4, new ArrayList<>());
                 break;
             case 3:
-                mData.removeAll(list3);
+                mHashMap.put(6, new ArrayList<>());
                 break;
             default:
                 break;
@@ -106,16 +117,23 @@ public class MainActivity extends AppCompatActivity {
     private void addData(int level) {
         switch (level) {
             case 1:
-                mData.addAll(list1);
+                mHashMap.put(2, list1);
                 break;
             case 2:
-                mData.addAll(list2);
+                mHashMap.put(4, list2);
                 break;
             case 3:
-                mData.addAll(list3);
+                mHashMap.put(6, list3);
                 break;
             default:
                 break;
+        }
+    }
+
+    private void refreshData() {
+        mData.clear();
+        for (Integer key : mHashMap.keySet()) {
+            mData.addAll(mHashMap.get(key));
         }
     }
 }
